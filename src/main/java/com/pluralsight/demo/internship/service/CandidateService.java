@@ -1,6 +1,7 @@
 package com.pluralsight.demo.internship.service;
 
 import com.pluralsight.demo.internship.model.Candidate;
+import com.pluralsight.demo.internship.model.Internship;
 import com.pluralsight.demo.internship.repository.CandidateRepository;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,11 @@ public class CandidateService {
                 .collect(Collectors.toList());
     }
 
-
+//add name stream
     public List<Candidate> getCandidatesName(String name) {
+        return candidateRepository.findAll()
+                .stream()
+                .filter(c -> c.getName().trim().toLowerCase().equalsIgnoreCase(name))
+                .collect(Collectors.toList());
     }
 }
