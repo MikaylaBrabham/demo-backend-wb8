@@ -24,12 +24,14 @@ public class InternshipController {
         return ResponseEntity.ok(internships);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Internship> getInternshipById(@PathVariable Long id) {
         // Intentional flaw: no try-catch, lets RuntimeException bubble up
         Internship internship = internshipService.getInternshipById(id);
         return ResponseEntity.ok(internship);
     }
+
 
     @PostMapping
     public ResponseEntity<Internship> createInternship(@RequestBody Internship internship) {

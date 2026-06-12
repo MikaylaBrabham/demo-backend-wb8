@@ -20,8 +20,22 @@ public class CandidateController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Candidate>> getAllCandidates() {
-        List<Candidate> candidates = candidateService.getAllCandidates();
+    public ResponseEntity<List<Candidate>> getAllCandidates(
+            @RequestParam(required = false) String fieldOfStudy) {
+        List<Candidate> candidates;
+
+        if (fieldOfStudy != null) {
+            candidates = candidateService.getCandidatesByFieldOfStudy(fieldOfStudy);
+        } else {
+            candidates = candidateService.getAllCandidates();
+        }
+        return ResponseEntity.ok(candidates);
+
+    }
+    //add get mapping to search by candidates name
+    @GetMapping("/search/name/{name}")
+    public ResponseEntity<List<Candidate>> getCandidatesName( @PathVariable String name) {
+        List<Candidate> candidates = candidateService.getCandidatesName(name);
         return ResponseEntity.ok(candidates);
     }
 
@@ -50,5 +64,6 @@ public class CandidateController {
     public ResponseEntity<Void> deleteCandidate(@PathVariable Long id) {
         candidateService.deleteCandidate(id);
         return ResponseEntity.noContent().build();
+
     }
 }
