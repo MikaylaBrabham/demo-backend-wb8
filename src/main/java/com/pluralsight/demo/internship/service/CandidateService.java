@@ -54,7 +54,8 @@ public class CandidateService {
     public List<Candidate> getCandidatesName(String name) {
         return candidateRepository.findAll()
                 .stream()
-                .filter(c -> c.getName().trim().toLowerCase().equalsIgnoreCase(name))
+                .filter(c -> c.getName().toLowerCase().trim()
+                        .contains(name.toLowerCase().trim()))
                 .collect(Collectors.toList());
     }
 }
